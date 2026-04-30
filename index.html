@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RealVal — Real Estate Underwriting for Smarter Decisions</title>
+<meta name="description" content="RealVal delivers precise financial models, underwriting insights, and a suite of automation tools that guide risk-optimized real estate investment decisions." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A1414;
+    --bg-elev: #0F1C1C;
+    --bg-card: #122424;
+    --bg-card-hover: #163030;
+    --border: #1E3535;
+    --border-strong: #284545;
+    --teal: #1FA89C;
+    --teal-bright: #2DC9BB;
+    --teal-soft: rgba(31, 168, 156, 0.12);
+    --teal-glow: rgba(31, 168, 156, 0.35);
+    --text: #E8F0EF;
+    --text-dim: #94A8A6;
+    --text-muted: #5C7372;
+    --display: 'Instrument Serif', 'Times New Roman', serif;
+    --body: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: -20%; left: 50%;
+    transform: translateX(-50%);
+    width: 1400px; height: 800px;
+    background: radial-gradient(ellipse at center, var(--teal-soft) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10, 20, 20, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+  .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+  .logo-text { font-weight: 600; font-size: 19px; letter-spacing: 0.28em; color: var(--text); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--teal-bright); }
+  .nav-cta {
+    background: var(--teal); color: #02100F;
+    padding: 11px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; text-decoration: none;
+    transition: all 0.2s; border: 1px solid var(--teal);
+  }
+  .nav-cta:hover { background: var(--teal-bright); border-color: var(--teal-bright); box-shadow: 0 0 24px var(--teal-glow); }
+
+  /* HERO */
+  .hero { padding: 100px 0 60px; position: relative; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 14px;
+    background: var(--teal-soft);
+    border: 1px solid rgba(31, 168, 156, 0.25);
+    border-radius: 999px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal-bright);
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal-bright); box-shadow: 0 0 10px var(--teal-bright);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 1.05; letter-spacing: -0.025em;
+    margin-bottom: 28px; max-width: 1100px;
+  }
+  .rotator-stack { position: relative; display: inline-block; vertical-align: baseline; }
+  .rotator-spacer { visibility: hidden; white-space: nowrap; color: var(--teal-bright); font-style: italic; font-family: var(--display); font-weight: 400; }
+  .rotator-word {
+    position: absolute; left: 0; top: 0;
+    white-space: nowrap;
+    color: var(--teal-bright); font-style: italic;
+    font-family: var(--display); font-weight: 400;
+    opacity: 0;
+    animation: wordRotate 12s ease-in-out infinite;
+  }
+  .rotator-word:nth-child(2) { animation-delay: 0s; }
+  .rotator-word:nth-child(3) { animation-delay: 2.4s; }
+  .rotator-word:nth-child(4) { animation-delay: 4.8s; }
+  .rotator-word:nth-child(5) { animation-delay: 7.2s; }
+  .rotator-word:nth-child(6) { animation-delay: 9.6s; }
+  @keyframes wordRotate {
+    0%      { opacity: 0; transform: translateY(20px); }
+    3%, 17% { opacity: 1; transform: translateY(0); }
+    20%,100%{ opacity: 0; transform: translateY(-20px); }
+  }
+  .hero p.hero-sub {
+    font-size: clamp(17px, 1.4vw, 20px);
+    color: var(--text-dim); max-width: 680px;
+    margin-bottom: 44px; font-weight: 400;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--teal); color: #02100F;
+    padding: 15px 30px; border-radius: 999px;
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.25s; border: 1px solid var(--teal);
+  }
+  .btn-primary:hover { background: var(--teal-bright); border-color: var(--teal-bright); box-shadow: 0 0 32px var(--teal-glow); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--text);
+    padding: 15px 30px; border-radius: 999px;
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    border: 1px solid var(--border-strong); transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal-bright); }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--teal-bright);
+    margin-bottom: 16px; display: block;
+  }
+  .section-title {
+    font-weight: 700;
+    font-size: clamp(30px, 3.6vw, 48px);
+    line-height: 1.12; letter-spacing: -0.02em;
+    margin-bottom: 20px; max-width: 800px;
+  }
+  .section-title .italic {
+    font-family: var(--display); font-style: italic;
+    font-weight: 400; color: var(--teal-bright);
+  }
+  .section-subtitle { font-size: 17px; color: var(--text-dim); max-width: 640px; margin-bottom: 56px; }
+
+  /* TOOLS */
+  .tools { padding: 40px 0 100px; position: relative; }
+  .tools-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+  }
+  .tool-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 320px;
+  }
+  .tool-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .tool-card::after {
+    content: ''; position: absolute; bottom: -50%; right: -20%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, var(--teal-soft) 0%, transparent 70%);
+    opacity: 0; transition: opacity 0.4s; pointer-events: none;
+  }
+  .tool-card:hover { background: var(--bg-card-hover); border-color: var(--teal); transform: translateY(-4px); }
+  .tool-card:hover::before { opacity: 1; }
+  .tool-card:hover::after { opacity: 1; }
+  .tool-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: var(--teal-soft); border: 1px solid rgba(31, 168, 156, 0.25);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 28px; color: var(--teal-bright);
+    transition: all 0.3s;
+  }
+  .tool-card:hover .tool-icon { background: var(--teal); color: #02100F; border-color: var(--teal); }
+  .tool-tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 12px;
+  }
+  .tool-name { font-weight: 700; font-size: 24px; line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .tool-desc { color: var(--text-dim); font-size: 15px; line-height: 1.6; margin-bottom: 28px; flex-grow: 1; }
+  .tool-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--teal-bright); font-weight: 600; font-size: 14px;
+    letter-spacing: 0.02em; margin-top: auto;
+  }
+  .tool-link svg { transition: transform 0.3s; }
+  .tool-card:hover .tool-link svg { transform: translate(4px, -4px); }
+
+  /* ABOUT + STATS */
+  .about { padding: 100px 0; position: relative; }
+  .about::before, .services::before, .why::before, .clients::before, .testimonials::before, .insights::before, .cta-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-text p { color: var(--text-dim); font-size: 16px; line-height: 1.75; margin-bottom: 16px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+  .stat {
+    padding: 28px 20px; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 16px;
+    text-align: center; transition: all 0.3s;
+  }
+  .stat:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .stat-num {
+    font-weight: 700; font-size: 44px; line-height: 1;
+    color: var(--teal-bright); letter-spacing: -0.02em;
+    margin-bottom: 8px; font-variant-numeric: tabular-nums;
+  }
+  .stat-label { font-size: 13px; font-weight: 500; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* SERVICES */
+  .services { padding: 100px 0; position: relative; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 24px; }
+  .service-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 40px 36px;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .service-card:hover { border-color: var(--teal); background: var(--bg-card-hover); }
+  .service-card h3 { font-weight: 700; font-size: 26px; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .service-card > p { color: var(--text-dim); font-size: 15px; margin-bottom: 24px; line-height: 1.65; }
+  .service-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .service-list li { display: flex; align-items: flex-start; gap: 12px; color: var(--text); font-size: 14px; }
+  .service-list svg { flex-shrink: 0; margin-top: 2px; color: var(--teal-bright); }
+
+  /* WHY */
+  .why { padding: 100px 0; position: relative; }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; margin-top: 56px; }
+  .why-item { padding: 28px 0; border-top: 1px solid var(--border); }
+  .why-item-icon { width: 36px; height: 36px; color: var(--teal-bright); margin-bottom: 20px; }
+  .why-item h3 { font-weight: 600; font-size: 19px; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .why-item p { color: var(--text-dim); font-size: 14.5px; line-height: 1.6; }
+
+  /* CLIENTS MARQUEE */
+  .clients { padding: 80px 0; position: relative; overflow: hidden; }
+  .clients-label {
+    text-align: center; color: var(--text-muted);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; margin-bottom: 36px;
+  }
+  .marquee {
+    display: flex; overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+  }
+  .marquee-track {
+    display: flex; gap: 80px;
+    animation: scroll 32s linear infinite;
+    flex-shrink: 0; padding-right: 80px;
+  }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+  .marquee-item {
+    color: var(--text-dim); font-size: 22px; font-weight: 600;
+    letter-spacing: -0.01em; white-space: nowrap;
+    opacity: 0.6; transition: opacity 0.2s, color 0.2s;
+  }
+  .marquee-item:hover { opacity: 1; color: var(--teal-bright); }
+
+  /* TESTIMONIALS */
+  .testimonials { padding: 100px 0; position: relative; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; margin-top: 56px; }
+  .quote-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px 28px;
+    transition: all 0.3s;
+  }
+  .quote-card:hover { border-color: var(--teal); }
+  .quote-icon {
+    color: var(--teal); font-family: var(--display);
+    font-size: 56px; line-height: 0.5;
+    margin-bottom: 8px; height: 28px;
+  }
+  .quote-text {
+    color: var(--text); line-height: 1.55;
+    margin-bottom: 24px; font-family: var(--display);
+    font-style: italic; font-weight: 400; font-size: 18px;
+  }
+  .quote-author { font-weight: 600; font-size: 14px; color: var(--text); }
+  .quote-role { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* INSIGHTS */
+  .insights { padding: 100px 0; position: relative; }
+  .insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 56px; }
+  .insight-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px 28px;
+    text-decoration: none; color: var(--text);
+    transition: all 0.3s; display: flex; flex-direction: column;
+    min-height: 240px;
+  }
+  .insight-card:hover { border-color: var(--teal); background: var(--bg-card-hover); transform: translateY(-3px); }
+  .insight-meta {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 12px; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 18px; font-weight: 600;
+  }
+  .insight-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted); }
+  .insight-meta .cat { color: var(--teal-bright); }
+  .insight-card h3 {
+    font-weight: 600; font-size: 19px; line-height: 1.35;
+    letter-spacing: -0.01em; margin-bottom: auto; padding-bottom: 24px;
+  }
+  .insight-card .read-more {
+    color: var(--teal-bright); font-weight: 600; font-size: 13px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  /* CTA */
+  .cta-section { padding: 100px 0 120px; text-align: center; position: relative; }
+  .cta-card {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+    border: 1px solid var(--border-strong);
+    border-radius: 24px;
+    padding: 72px 48px;
+    max-width: 880px; margin: 0 auto;
+    position: relative; overflow: hidden;
+  }
+  .cta-card::before {
+    content: ''; position: absolute; top: -50%; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, var(--teal-soft) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-card h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 3.8vw, 44px);
+    line-height: 1.15; margin-bottom: 18px;
+    letter-spacing: -0.02em; position: relative;
+  }
+  .cta-card h2 .italic { font-family: var(--display); font-style: italic; font-weight: 400; color: var(--teal-bright); }
+  .cta-card p {
+    color: var(--text-dim); font-size: 17px; margin-bottom: 36px;
+    max-width: 520px; margin-left: auto; margin-right: auto;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 64px 0 32px; background: var(--bg-elev); }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand { max-width: 320px; }
+  .footer-brand p { color: var(--text-dim); font-size: 14px; line-height: 1.65; margin-top: 18px; }
+  .footer-col h4 {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text); margin-bottom: 18px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 11px; }
+  .footer-col a { color: var(--text-dim); font-size: 14px; text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--teal-bright); }
+  .footer-bottom {
+    border-top: 1px solid var(--border); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-copy { color: var(--text-muted); font-size: 13px; }
+  .footer-tag { color: var(--text-muted); font-size: 13px; font-style: italic; font-family: var(--display); }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+  /* HERO ENTRY */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-eyebrow { animation: fadeUp 0.8s ease 0.1s backwards; }
+  .hero h1 { animation: fadeUp 0.8s ease 0.25s backwards; }
+  .hero p.hero-sub { animation: fadeUp 0.8s ease 0.4s backwards; }
+  .hero-actions { animation: fadeUp 0.8s ease 0.55s backwards; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .container { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 60px 0 40px; }
+    .tools, .about, .services, .why, .testimonials, .insights, .cta-section { padding: 70px 0; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .tool-card { padding: 28px 24px; min-height: auto; }
+    .cta-card { padding: 48px 28px; }
+    .footer-bottom { justify-content: center; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="logo" aria-label="RealVal home">
+      <svg class="logo-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 12 L88 78 L12 78 Z" stroke="#1FA89C" stroke-width="6" stroke-linejoin="round" fill="none"/>
+        <path d="M32 32 L32 60" stroke="#1FA89C" stroke-width="6" stroke-linecap="round"/>
+        <path d="M32 32 L48 32 Q56 32 56 40 Q56 48 48 48 L36 48" stroke="#1FA89C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M48 48 L60 64" stroke="#1FA89C" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">REALVAL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#insights">Insights</a></li>
+      <li><a href="https://therealval.com/contact-us/" target="_blank" rel="noopener">Contact</a></li>
+    </ul>
+    <a href="https://therealval.com/contact-us/" target="_blank" rel="noopener" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO with Archer-style rotating words -->
+<section class="hero">
+  <div class="container">
+    <span class="hero-eyebrow">Real Estate Underwriting Toolkit</span>
+    <h1>
+      Accelerate your
+      <span class="rotator-stack">
+        <span class="rotator-spacer">investment decisions</span>
+        <span class="rotator-word">underwriting</span>
+        <span class="rotator-word">rent rolls</span>
+        <span class="rotator-word">market analysis</span>
+        <span class="rotator-word">deal flow</span>
+        <span class="rotator-word">investment decisions</span>
+      </span>
+      <br>and close more deals.
+    </h1>
+    <p class="hero-sub">
+      Precise financial models, underwriting insights, and a suite of automation tools — all built to guide risk-optimized investment decisions for CRE professionals.
+    </p>
+    <div class="hero-actions">
+      <a href="#tools" class="btn-primary">
+        Explore Tools
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://therealval.com/contact-us/" target="_blank" rel="noopener" class="btn-secondary">Talk to Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS — TOP PRIORITY -->
+<section class="tools" id="tools">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">The Toolkit</span>
+      <h2 class="section-title">Tools built by underwriters, <span class="italic">for underwriters.</span></h2>
+      <p class="section-subtitle">Each tool solves a real underwriting problem. Click any card to launch the tool in a new tab — no signup required.</p>
+    </div>
+
+    <div class="tools-grid">
+      <a href="https://rv-t12.vercel.app/" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/><line x1="15" y1="21" x2="15" y2="9"/>
+          </svg>
+        </div>
+        <span class="tool-tag">Financials · Categorization</span>
+        <h3 class="tool-name">T12 Categorization & Analysis</h3>
+        <p class="tool-desc">Upload any T12 statement and instantly categorize line items, normalize expenses, and generate an underwriting-ready summary.</p>
+        <span class="tool-link">Launch tool
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </a>
+
+      <a href="https://rent-rollstandardizer-2tpipwwmarvbwe5fzhybaf.streamlit.app/" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <span class="tool-tag">Rent Roll · Standardization</span>
+        <h3 class="tool-name">Rent Roll Standardizer</h3>
+        <p class="tool-desc">Convert messy, inconsistent rent rolls from any property management system into a clean, standardized format ready for analysis.</p>
+        <span class="tool-link">Launch tool
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </a>
+
+      <a href="https://splendorous-lolly-edebd8.netlify.app/" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <span class="tool-tag">Market · Demographics</span>
+        <h3 class="tool-name">Market Demographics Intelligence</h3>
+        <p class="tool-desc">Pull demographic and market data for any submarket — population, income, employment, and growth trends — to validate every deal.</p>
+        <span class="tool-link">Launch tool
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT + STATS -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">About RealVal</span>
+        <h2 class="section-title">Empowering real estate decisions with <span class="italic">precision and insight.</span></h2>
+        <p>RealVal is a real estate underwriting and back-office partner for U.S. investors, operators, and acquisition teams. We deliver fast, accurate underwriting and investment research built on deep U.S. real estate knowledge.</p>
+        <p>From rent rolls and cash flow tracking to portfolio-level reporting, our team provides ongoing financial oversight throughout the hold period — helping owners and operators monitor performance, manage risk, and maximize returns.</p>
+      </div>
+      <div class="reveal">
+        <div class="stats-grid">
+          <div class="stat"><div class="stat-num" data-target="70" data-suffix="+">0</div><div class="stat-label">Clients</div></div>
+          <div class="stat"><div class="stat-num" data-target="300" data-suffix="+">0</div><div class="stat-label">Underwritings/wk</div></div>
+          <div class="stat"><div class="stat-num" data-target="50" data-suffix="+">0</div><div class="stat-label">Books Maintained</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Our Services</span>
+      <h2 class="section-title">Expertise <span class="italic">you can rely on.</span></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <h3>Real Estate Analysis & Underwriting</h3>
+        <p>We support investors, operators, and acquisition teams with fast, accurate underwriting and investment research built on deep U.S. real estate knowledge.</p>
+        <ul class="service-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Underwriting & Finance Analysis</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Asset Management & Reporting</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Investment & Marketing Collateral</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Operations Support</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <h3>Accounting Services</h3>
+        <p>An expert offshore accounting team for real estate companies, CPAs, and SMBs in the USA — delivering clean books, reconciliations, and audit-ready financial statements.</p>
+        <ul class="service-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Accounting & Bookkeeping</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>R.E. Accounting & Bookkeeping</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tax-Ready Financial Reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Why RealVal</span>
+      <h2 class="section-title">A trusted outsourcing partner for <span class="italic">U.S. real estate.</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <svg class="why-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <h3>Expert Team</h3>
+        <p>50+ highly trained analysts and accountants with deep U.S. real estate domain knowledge.</p>
+      </div>
+      <div class="why-item reveal">
+        <svg class="why-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <h3>Proven Experience</h3>
+        <p>Strong track record with leading real estate firms and a portfolio of repeat clients.</p>
+      </div>
+      <div class="why-item reveal">
+        <svg class="why-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <h3>Cost Efficiency</h3>
+        <p>Up to 60% savings compared to U.S.-based hires, without compromising on quality.</p>
+      </div>
+      <div class="why-item reveal">
+        <svg class="why-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+        <h3>Flexible Engagements</h3>
+        <p>From one-time projects to dedicated resources — we scale to fit your workflow.</p>
+      </div>
+      <div class="why-item reveal">
+        <svg class="why-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <h3>U.S. Real Estate Focus</h3>
+        <p>Deep expertise in the U.S. CRE market — multifamily, retail, industrial, and beyond.</p>
+      </div>
+      <div class="why-item reveal">
+        <svg class="why-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="7 14 12 9 16 13 21 8"/></svg>
+        <h3>Scalable Solutions</h3>
+        <p>Customized workflows that grow with your strategy — built to scale, not to break.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS MARQUEE -->
+<section class="clients">
+  <div class="container">
+    <p class="clients-label">Trusted by leading real estate firms</p>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">Viking Capital</span>
+      <span class="marquee-item">RSN Property Group</span>
+      <span class="marquee-item">Suncrest Capital</span>
+      <span class="marquee-item">Lee &amp; Associates</span>
+      <span class="marquee-item">BWE</span>
+      <span class="marquee-item">Open Door</span>
+      <span class="marquee-item">Alliance Group</span>
+      <span class="marquee-item">Viking Capital</span>
+      <span class="marquee-item">RSN Property Group</span>
+      <span class="marquee-item">Suncrest Capital</span>
+      <span class="marquee-item">Lee &amp; Associates</span>
+      <span class="marquee-item">BWE</span>
+      <span class="marquee-item">Open Door</span>
+      <span class="marquee-item">Alliance Group</span>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Proven Results</span>
+      <h2 class="section-title">What our clients <span class="italic">say.</span></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="quote-card reveal">
+        <div class="quote-icon">"</div>
+        <p class="quote-text">A trusted partner that has consistently delivered accurate underwriting and timely insights for our deal flow.</p>
+        <div class="quote-author">Reed Goossens</div>
+        <div class="quote-role">CEO, RSN Property Group</div>
+      </div>
+      <div class="quote-card reveal">
+        <div class="quote-icon">"</div>
+        <p class="quote-text">RealVal's team feels like an extension of our own — quick turnarounds and reliable analysis every time.</p>
+        <div class="quote-author">Brett Bowman</div>
+        <div class="quote-role">Suncrest Capital</div>
+      </div>
+      <div class="quote-card reveal">
+        <div class="quote-icon">"</div>
+        <p class="quote-text">Sharp underwriting, clean books, and a team that genuinely understands U.S. multifamily.</p>
+        <div class="quote-author">Vikram Raya</div>
+        <div class="quote-role">CEO, Viking Capital</div>
+      </div>
+      <div class="quote-card reveal">
+        <div class="quote-icon">"</div>
+        <p class="quote-text">Working with RealVal has materially increased our deal capacity without sacrificing rigor.</p>
+        <div class="quote-author">Patrick Gergen</div>
+        <div class="quote-role">CEO, Alliance Group</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section class="insights" id="insights">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Insights</span>
+      <h2 class="section-title">Insights that drive <span class="italic">real value.</span></h2>
+      <p class="section-subtitle">Sharp commentary on underwriting, asset management, and CRE markets — written by our team.</p>
+    </div>
+    <div class="insights-grid">
+      <a href="https://therealval.com/the-hidden-risks-in-triple-net-leases/" target="_blank" rel="noopener" class="insight-card reveal">
+        <div class="insight-meta"><span class="cat">Asset Classes</span><span class="dot"></span><span>Apr 14, 2026</span></div>
+        <h3>The Hidden Risks in Triple-Net Leases</h3>
+        <span class="read-more">Read more
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+      <a href="https://therealval.com/why-walt-is-a-comfort-metric-not-a-risk-metric/" target="_blank" rel="noopener" class="insight-card reveal">
+        <div class="insight-meta"><span class="cat">Underwriting</span><span class="dot"></span><span>Mar 9, 2026</span></div>
+        <h3>Why WALT Is a Comfort Metric, Not a Risk Metric</h3>
+        <span class="read-more">Read more
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+      <a href="https://therealval.com/tenant-preferences-in-commercial-real-estate-whats-driving-leasing-decisions-today/" target="_blank" rel="noopener" class="insight-card reveal">
+        <div class="insight-meta"><span class="cat">Market Trends</span><span class="dot"></span><span>Feb 24, 2026</span></div>
+        <h3>Tenant Preferences in CRE: What's Driving Leasing Decisions Today?</h3>
+        <span class="read-more">Read more
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card reveal">
+      <h2>Ready to underwrite <span class="italic">faster?</span></h2>
+      <p>Pick any tool above and start using it instantly — or talk to our team about end-to-end underwriting and accounting support.</p>
+      <a href="https://therealval.com/contact-us/" target="_blank" rel="noopener" class="btn-primary">
+        Get In Touch
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <svg class="logo-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 12 L88 78 L12 78 Z" stroke="#1FA89C" stroke-width="6" stroke-linejoin="round" fill="none"/>
+            <path d="M32 32 L32 60" stroke="#1FA89C" stroke-width="6" stroke-linecap="round"/>
+            <path d="M32 32 L48 32 Q56 32 56 40 Q56 48 48 48 L36 48" stroke="#1FA89C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M48 48 L60 64" stroke="#1FA89C" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+          <span class="logo-text">REALVAL</span>
+        </a>
+        <p>Real estate underwriting, asset management, and accounting — built for U.S. investors, operators, and acquisition teams.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="https://therealval.com/about/" target="_blank" rel="noopener">About</a></li>
+          <li><a href="https://therealval.com/our-team/" target="_blank" rel="noopener">Our Team</a></li>
+          <li><a href="https://therealval.com/careers/" target="_blank" rel="noopener">Careers</a></li>
+          <li><a href="https://therealval.com/case-studies/" target="_blank" rel="noopener">Case Studies</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="https://therealval.com/real-estate-analysis-underwriting-services/" target="_blank" rel="noopener">Underwriting</a></li>
+          <li><a href="https://therealval.com/accounting-services/" target="_blank" rel="noopener">Accounting</a></li>
+          <li><a href="https://therealval.com/blog/" target="_blank" rel="noopener">Blog</a></li>
+          <li><a href="#tools">Tools</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@therealval.com">info@therealval.com</a></li>
+          <li><a href="tel:+14704444297">(470) 444-4297</a></li>
+          <li><a href="tel:+14704444695">(470) 444-4695</a></li>
+          <li><a href="https://www.linkedin.com/company/therealval" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 RealVal. All rights reserved.</div>
+      <div class="footer-tag">Underwriting at the speed of opportunity.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal observer
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Animated stat counter
+  const statEls = document.querySelectorAll('.stat-num');
+  const statIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const dur = 1600;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(target * eased) + (p === 1 ? suffix : '');
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(tick);
+      statIO.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  statEls.forEach(el => statIO.observe(el));
+</script>
+
+</body>
+</html>
