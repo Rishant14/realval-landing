@@ -22,7 +22,7 @@
     --text-mute: #6B6B6B;
     --border: rgba(0, 0, 0, 0.08);
     --display: 'Manrope', system-ui, sans-serif;
-    --serif: 'Instrument Serif', serif;
+    --serif: 'Manrope', system-ui, sans-serif;
     --body: 'Inter', system-ui, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,9 +56,9 @@
   .typewriter {
     display: inline-block;
     color: var(--teal-bright);
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
+    font-family: var(--display);
+    font-style: normal;
+    font-weight: 700;
     position: relative;
   }
   .typewriter::after {
@@ -167,7 +167,7 @@
   .tools-section { padding: 120px 0 80px; background: var(--cream); }
   .section-eyebrow { text-align: center; color: var(--text-mute); font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
   .section-headline { text-align: center; font-family: var(--display); font-weight: 800; font-size: clamp(38px, 5vw, 64px); line-height: 1.0; letter-spacing: -0.035em; margin-bottom: 24px; color: var(--text-dark); }
-  .section-headline .italic { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--teal-deep); }
+  .section-headline .italic { font-family: var(--display); font-style: normal; font-weight: 800; color: var(--teal-deep); }
   .section-sub { text-align: center; color: var(--text-mute); font-size: 18px; max-width: 640px; margin: 0 auto 72px; }
 
   .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -334,7 +334,7 @@
   <div class="container">
     <div class="hero-grid">
       <div>
-        <span class="hero-eyebrow">Real Estate Underwriting Toolkit</span>
+        
         <h1>
           Underwrite smarter.<br>
           Close faster<br>
@@ -479,7 +479,7 @@
     <div class="reveal">
       <div class="section-eyebrow">The Toolkit</div>
       <h2 class="section-headline">Tools you can use <span class="italic">right now.</span></h2>
-      <p class="section-sub">Each tool solves a real underwriting problem. Click any card to launch the tool — no signup required.</p>
+      <p class="section-sub">Each tool solves a real underwriting problem. Click any card to launch the tool — access required.</p>
     </div>
 
     <div class="tools-grid">
@@ -489,7 +489,7 @@
         <div class="tool-preview">
           <div class="geo-shape circle-tr"></div>
           <span class="tool-preview-tag">T12</span>
-          <div class="tool-preview-bigtext">Categorize a <span class="accent">T12</span> in seconds.</div>
+          <div class="tool-preview-bigtext">Analyze a <span class="accent">T12</span> in seconds.</div>
           <div class="tool-preview-stats">
             <div class="stat">
               <div class="stat-num">~12s</div>
