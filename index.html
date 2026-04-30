@@ -44,7 +44,8 @@
   /* HERO */
   .hero { background: var(--olive); color: var(--text-light); padding: 100px 0 0; position: relative; overflow: hidden; border-radius: 0 0 32px 32px; margin: 0 16px; }
   .hero::before { content: ''; position: absolute; top: -200px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, var(--teal-soft) 0%, transparent 65%); pointer-events: none; }
-  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; position: relative; z-index: 2; padding-left: 24px; }
+  .hero-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 50px; align-items: center; position: relative; z-index: 2; }
+  .hero .container { max-width: 1200px; }
   .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; background: var(--teal-soft); border: 1px solid rgba(31, 168, 156, 0.3); border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-bright); margin-bottom: 28px; }
   .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal-bright); box-shadow: 0 0 10px var(--teal-bright); animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
