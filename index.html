@@ -50,7 +50,7 @@
   .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal-bright); box-shadow: 0 0 10px var(--teal-bright); animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(44px, 5.5vw, 78px); line-height: 1.0; letter-spacing: -0.035em; margin-bottom: 28px; }
+  .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 4.8vw, 66px); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 28px; }
 
   /* Typewriter rotation */
   .typewriter {
@@ -60,6 +60,7 @@
     font-style: normal;
     font-weight: 700;
     position: relative;
+    white-space: nowrap;
   }
   .typewriter::after {
     content: '';
@@ -177,7 +178,7 @@
   .tool-card.lifted { background: #243430; }
   .tool-preview { aspect-ratio: 16/10; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.06); position: relative; overflow: hidden; }
   .tool-preview-tag { display: inline-block; background: var(--teal); color: #02100F; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 10px; border-radius: 6px; align-self: flex-start; }
-  .tool-preview-bigtext { font-family: var(--display); font-weight: 800; font-size: 36px; line-height: 0.98; letter-spacing: -0.03em; color: var(--cream); }
+  .tool-preview-bigtext { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1.15; letter-spacing: -0.02em; color: var(--cream); }
   .tool-preview-bigtext .accent { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--teal-bright); }
   .tool-preview-stats { display: flex; gap: 18px; align-items: center; }
   .tool-preview-stats .stat { flex: 1; }
