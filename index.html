@@ -97,25 +97,29 @@
   .browser-dot.green { background: #28C840; }
   .browser-url { flex: 1; text-align: center; background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.6); font-size: 12px; padding: 5px 14px; border-radius: 6px; margin: 0 12px; font-family: 'SF Mono', 'Menlo', monospace; }
   .browser-url-stack { position: relative; flex: 1; margin: 0 12px; height: 26px; }
-  .browser-url-text { position: absolute; left: 0; right: 0; top: 0; text-align: center; background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.6); font-size: 12px; padding: 5px 14px; border-radius: 6px; font-family: 'SF Mono', 'Menlo', monospace; opacity: 0; animation: urlCycle 18s ease-in-out infinite; }
+  .browser-url-text { position: absolute; left: 0; right: 0; top: 0; text-align: center; background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.6); font-size: 12px; padding: 5px 14px; border-radius: 6px; font-family: 'SF Mono', 'Menlo', monospace; opacity: 0; animation: urlCycle 30s ease-in-out infinite; }
   .browser-url-text:nth-child(1) { animation-delay: 0s; }
   .browser-url-text:nth-child(2) { animation-delay: 6s; }
   .browser-url-text:nth-child(3) { animation-delay: 12s; }
+  .browser-url-text:nth-child(4) { animation-delay: 18s; }
+  .browser-url-text:nth-child(5) { animation-delay: 24s; }
   @keyframes urlCycle {
     0%      { opacity: 0; }
-    2%, 31% { opacity: 1; }
-    33%,100%{ opacity: 0; }
+    1%, 19% { opacity: 1; }
+    20%,100%{ opacity: 0; }
   }
 
   .browser-content { background: linear-gradient(180deg, #1A2422 0%, #0F1816 100%); min-height: 380px; position: relative; overflow: hidden; }
-  .preview-slide { position: absolute; inset: 0; padding: 28px 26px; opacity: 0; animation: slideRotate 18s ease-in-out infinite; }
+  .preview-slide { position: absolute; inset: 0; padding: 28px 26px; opacity: 0; animation: slideRotate 30s ease-in-out infinite; }
   .preview-slide:nth-child(1) { animation-delay: 0s; }
   .preview-slide:nth-child(2) { animation-delay: 6s; }
   .preview-slide:nth-child(3) { animation-delay: 12s; }
+  .preview-slide:nth-child(4) { animation-delay: 18s; }
+  .preview-slide:nth-child(5) { animation-delay: 24s; }
   @keyframes slideRotate {
     0%      { opacity: 0; transform: translateY(20px); }
-    3%, 31% { opacity: 1; transform: translateY(0); }
-    33%,100%{ opacity: 0; transform: translateY(-20px); }
+    2%, 19% { opacity: 1; transform: translateY(0); }
+    20%,100%{ opacity: 0; transform: translateY(-20px); }
   }
   .preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
   .preview-title { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--text-light); }
@@ -377,6 +381,8 @@
             <span class="browser-url-text">rv-t12.vercel.app</span>
             <span class="browser-url-text">rent-roll-standardizer.app</span>
             <span class="browser-url-text">demographics.realval.com</span>
+            <span class="browser-url-text">quick-uw.realval.com</span>
+            <span class="browser-url-text">om-analyzer.realval.com</span>
           </div>
         </div>
         <div class="browser-content">
@@ -445,6 +451,50 @@
                 <span class="bar"><span class="bar-fill" style="width: 60%;"></span></span>
                 <span class="val">5.4%</span>
               </div>
+            </div>
+          </div>
+
+          <!-- Slide 4: Quick Underwriting -->
+          <div class="preview-slide">
+            <div class="preview-header">
+              <div class="preview-title">Quick Underwriting · Deal Output</div>
+              <div class="preview-pill">⚡ Calculated</div>
+            </div>
+            <div class="preview-rows">
+              <div class="preview-row">
+                <span class="label"><span class="dot"></span>Purchase Price</span>
+                <span class="val">$24,500,000</span>
+              </div>
+              <div class="preview-row">
+                <span class="label"><span class="dot"></span>Going-In Cap Rate</span>
+                <span class="val green">6.21%</span>
+              </div>
+              <div class="preview-row">
+                <span class="label"><span class="dot"></span>5-Yr IRR</span>
+                <span class="val green">17.4%</span>
+              </div>
+              <div class="preview-row">
+                <span class="label"><span class="dot"></span>Equity Multiple</span>
+                <span class="val green">2.1x</span>
+              </div>
+              <div class="preview-row">
+                <span class="label"><span class="dot"></span>Avg. Cash-on-Cash</span>
+                <span class="val green">8.6%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5: OM Analyzer -->
+          <div class="preview-slide">
+            <div class="preview-header">
+              <div class="preview-title">OM Parser · Extracted Metrics</div>
+              <div class="preview-pill">📄 Parsed</div>
+            </div>
+            <div class="ai-chat">
+              <div class="ai-msg user">Parse this OM and pull key metrics</div>
+              <div class="ai-msg bot">Extracted 248 units · YOC 1998 · Asking $42.8M ($172,580/unit) · In-place NOI $2.64M</div>
+              <div class="ai-msg user">Unit mix?</div>
+              <div class="ai-msg bot"><strong style="color: var(--teal-bright);">1BR:</strong> 42% · <strong style="color: var(--teal-bright);">2BR:</strong> 48% · <strong style="color: var(--teal-bright);">3BR:</strong> 10% — Avg unit 942 SF</div>
             </div>
           </div>
 
@@ -560,6 +610,60 @@
           <div class="tool-cat">Market · Demographics</div>
           <div class="tool-name">Market Demographics Intelligence</div>
           <div class="tool-desc">Pull demographic and market data for any submarket — population, income, employment, and growth trends — to validate every deal.</div>
+          <span class="tool-launch">Launch tool
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Quick Underwriting -->
+      <a href="https://realval-uw-759u4kfp3urazyr5k2zt38.streamlit.app/" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-preview">
+          <div class="geo-shape circle-tr"></div>
+          <span class="tool-preview-tag">QUICK UW</span>
+          <div class="tool-preview-bigtext">Underwrite in <span class="accent">minutes.</span></div>
+          <div class="tool-preview-stats">
+            <div class="stat">
+              <div class="stat-num">&lt;5 min</div>
+              <div class="stat-label">Full UW</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">Instant</div>
+              <div class="stat-label">IRR / Cap Rate</div>
+            </div>
+          </div>
+        </div>
+        <div class="tool-info">
+          <div class="tool-cat">Underwriting · Speed</div>
+          <div class="tool-name">Quick Underwriting Tool</div>
+          <div class="tool-desc">Run a full underwriting in minutes. Plug in your assumptions and instantly get IRR, equity multiple, cash-on-cash, and cap rate projections.</div>
+          <span class="tool-launch">Launch tool
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- OM Analyzer -->
+      <a href="https://om-analyzer-hhu6955zcuiswx2mbcmrdr.streamlit.app/" target="_blank" rel="noopener" class="tool-card lifted reveal">
+        <div class="tool-preview">
+          <div class="geo-shape circle-tr"></div>
+          <span class="tool-preview-tag">OM PARSER</span>
+          <div class="tool-preview-bigtext">Parse an <span class="accent">OM</span>&nbsp;in seconds.</div>
+          <div class="tool-preview-stats">
+            <div class="stat">
+              <div class="stat-num">~15s</div>
+              <div class="stat-label">Avg. parse time</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">All key</div>
+              <div class="stat-label">Metrics</div>
+            </div>
+          </div>
+        </div>
+        <div class="tool-info">
+          <div class="tool-cat">OM · Analysis</div>
+          <div class="tool-name">OM Parsing & Analysis</div>
+          <div class="tool-desc">Upload any Offering Memorandum and instantly extract key deal metrics — pricing, financials, unit mix, and assumptions — ready to underwrite.</div>
           <span class="tool-launch">Launch tool
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
           </span>
